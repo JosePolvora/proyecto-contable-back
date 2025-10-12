@@ -11,25 +11,25 @@
 
 
 
-// src/db.js
+
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize(
-  process.env.DB_NAME,   // defaultdb en Aiven
+const dbcontable = new Sequelize(
+  process.env.DB_NAME,   // defaultdb
   process.env.DB_USER,   // avnadmin
-  process.env.DB_PASS,   // tu contraseña de Aiven
+  process.env.DB_PASS,   // contraseña
   {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     dialect: 'mysql',
     dialectOptions: {
       ssl: {
-        require: true,
+        require: process.env.DB_SSL === 'true',
         rejectUnauthorized: false
       }
     },
-    logging: false // opcional
+    logging: false
   }
 );
 
-module.exports = sequelize;
+module.exports = dbcontable;

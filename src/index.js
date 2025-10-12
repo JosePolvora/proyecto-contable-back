@@ -45,7 +45,7 @@
 const express = require("express");
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
-const sequelize = require("./db"); // Importa el db.js configurado para Aiven
+const dbcontable = require("./config/app"); // conexión Sequelize
 const routes = require("./routes/index.routes");
 
 const app = express();
@@ -53,11 +53,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use(
-  fileUpload({
-    useTempFiles: false,
-  })
-);
+app.use(fileUpload({ useTempFiles: false }));
 
 app.get("/", (req, res) => {
   res.send("¡Servidor activo y funcionando correctamente!");
@@ -66,17 +62,14 @@ app.get("/", (req, res) => {
 app.use("/api", routes);
 
 // Probar la conexión a la base de datos
-sequelize.authenticate()
+dbcontable.authenticate()
   .then(() => console.log("✅ Conexión correcta a MySQL en Aiven"))
   .catch(err => console.error("❌ Error de conexión:", err));
 
-// Sincronizar la base de datos (opcional: force/alter según necesidad)
-sequelize.sync()
+// Sincronizar la base de datos
+dbcontable.sync()
   .then(() => console.log("BASE DE DATOS SINCRONIZADA"))
   .catch(err => console.error("ERROR EN SINCRONIZACIÓN DE BASE DE DATOS:", err));
 
 const PUERTO = process.env.PORT || 3000;
-
-app.listen(PUERTO, () => {
-  console.log(`Servidor escuchando en el puerto ${PUERTO}...`);
-});
+app.listen(PUERTO, () => console.log(`Servidor escuchando en el puerto ${PUERTO}...`));
