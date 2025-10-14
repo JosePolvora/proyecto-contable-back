@@ -41,9 +41,6 @@
 //   console.log(`Servidor escuchando en el puerto ${PUERTO}...`);
 // });
 
-
-
-
 const express = require("express");
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
@@ -66,15 +63,19 @@ app.use("/api", routes);
 dbcontable.sequelize
   .authenticate()
   .then(() => console.log("✅ Conexión correcta a la base de datos"))
-  .catch(err => console.error("❌ Error de conexión:", err));
+  .catch((err) => console.error("❌ Error de conexión:", err));
 
 // Sincronizar DB
 dbcontable.sequelize
   .sync()
   .then(() => console.log("✅ Base de datos sincronizada"))
-  .catch(err => console.error("❌ Error al sincronizar la base de datos:", err));
+  .catch((err) =>
+    console.error("❌ Error al sincronizar la base de datos:", err)
+  );
 
+// ✅ Iniciar servidor
 const PUERTO = process.env.PORT || 3000;
-app.listen(PUERTO, () => {
+
+app.listen(PUERTO, "0.0.0.0", () => {
   console.log(`Servidor escuchando en el puerto ${PUERTO}...`);
 });
