@@ -22,4 +22,9 @@ dbcontable.Usuario.hasMany(dbcontable.Expediente, {
   as: "expedientes",
 });
 
+console.log(
+  "Configuración Sequelize que se va a usar:",
+  dbcontable.sequelize.config
+);
+
 module.exports = dbcontable;

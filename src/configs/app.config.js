@@ -33,21 +33,17 @@
 
 // module.exports = sequelize;
 
-
-
-
-
 const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize(
-  "dbcontable",           // Nombre de la base
-  "appuser",              // Usuario que creaste en MySQL
-  "Josema77",       // Contraseña que asignaste
+  "dbcontable", // Nombre de la base
+  "appuser", // Usuario que creaste en MySQL
+  "Josema77", // Contraseña que asignaste
   {
     host: "localhost",
     port: "3306",
     dialect: "mysql",
-    logging: false
+    logging: false,
   }
 );
 
