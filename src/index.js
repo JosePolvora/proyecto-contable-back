@@ -41,10 +41,50 @@
 //   console.log(`Servidor escuchando en el puerto ${PUERTO}...`);
 // });
 
+// const express = require("express");
+// const cors = require("cors");
+// const fileUpload = require("express-fileupload");
+// const dbcontable = require("./models/index.model"); // ✅ usa la versión con models
+// const routes = require("./routes/index.routes");
+
+// const app = express();
+
+// app.use(cors());
+// app.use(express.json());
+// app.use(fileUpload({ useTempFiles: false }));
+
+// app.get("/", (req, res) => {
+//   res.send("¡Servidor activo y funcionando correctamente!");
+// });
+
+// app.use("/api", routes);
+
+// // Probar conexión
+// dbcontable.sequelize
+//   .authenticate()
+//   .then(() => console.log("✅ Conexión correcta a la base de datos"))
+//   .catch((err) => console.error("❌ Error de conexión:", err));
+
+// // Sincronizar DB
+// dbcontable.sequelize
+//   .sync()
+//   .then(() => console.log("✅ Base de datos sincronizada"))
+//   .catch((err) =>
+//     console.error("❌ Error al sincronizar la base de datos:", err)
+//   );
+
+// // ✅ Iniciar servidor
+// const PUERTO = process.env.PORT || 3000;
+
+// app.listen(PUERTO, "0.0.0.0", () => {
+//   console.log(`Servidor escuchando en el puerto ${PUERTO}...`);
+// });
+
+
 const express = require("express");
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
-const dbcontable = require("./models/index.model"); // ✅ usa la versión con models
+const dbcontable = require("./models/index.model"); // usa tus modelos
 const routes = require("./routes/index.routes");
 
 const app = express();
@@ -57,7 +97,7 @@ app.get("/", (req, res) => {
   res.send("¡Servidor activo y funcionando correctamente!");
 });
 
-app.use("/api", routes);
+app.use("/api", routes); // todas las rutas con prefijo /api
 
 // Probar conexión
 dbcontable.sequelize
@@ -73,9 +113,8 @@ dbcontable.sequelize
     console.error("❌ Error al sincronizar la base de datos:", err)
   );
 
-// ✅ Iniciar servidor
+// Iniciar servidor
 const PUERTO = process.env.PORT || 3000;
-
 app.listen(PUERTO, "0.0.0.0", () => {
   console.log(`Servidor escuchando en el puerto ${PUERTO}...`);
 });
